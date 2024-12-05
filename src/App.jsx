@@ -132,8 +132,9 @@ function App() {
           <Routes>
             <Route path="/terms" element={<Terms />} />
             <Route path="/privacy" element={<Privacy />} />
-            <Route path="*" element={<Navigate to="/terms" />} />{" "}
-            {/* Redirect other paths to /terms */}
+            <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="*" element={<Navigate to="/login" />} /> {/* Redirect to login */}
           </Routes>
         ) : (
           <>
@@ -143,7 +144,7 @@ function App() {
               <Sidebar />
               <div className="flex-1 p-6 ml-[70px]">
                 <Routes>
-                  {/* Protected Routes */}
+                  {/* Redirect user to home page if trying to access login/register when authenticated */}
                   <Route path="/" element={<Navigate to="/home" />} />
                   <Route
                     path="/home"
@@ -161,12 +162,7 @@ function App() {
                   />
                   <Route
                     path="/create-post"
-                    element={
-                      <CreatePost
-                        accounts={accounts}
-                        setAccounts={setAccounts}
-                      />
-                    }
+                    element={<CreatePost accounts={accounts} setAccounts={setAccounts} />}
                   />
                   <Route
                     path="/create-post-one-account"
